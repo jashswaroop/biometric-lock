@@ -141,9 +141,9 @@ Thumbs.db
 *.sqlite
 *.sqlite3
 
-# Large model files
-*.dat
-shape_predictor_68_face_landmarks.dat
+# Large model files (commented out to allow shape_predictor file)
+# *.dat
+# shape_predictor_68_face_landmarks.dat
 
 # Logs
 *.log
