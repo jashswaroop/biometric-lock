@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="card-title mb-0">Register New Account</h3>
+            </div>
+            <div class="card-body">
+                <form id="registrationForm" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="invalid-feedback">
+                            Please enter a password.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        <div class="invalid-feedback">
+                            Passwords do not match.
+                        </div>
+                    </div>
+
+                    <div class="iris-enrollment-section mt-4">
+                        <h4>Iris Enrollment</h4>
+                        <div class="video-container mb-3">
+                            <video id="videoElement" class="w-100" autoplay playsinline></video>
+                            <canvas id="canvasElement" class="d-none"></canvas>
+                        </div>
+                        <div id="enrollmentStatus" class="alert alert-info d-none">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span class="ms-2">Preparing iris enrollment...</span>
+                        </div>
+                        <button type="button" id="captureIris" class="btn btn-primary mb-3" disabled>
+                            Capture Iris
+                        </button>
+                        <div class="enrollment-instructions">
+                            <h5>Enrollment Instructions:</h5>
+                            <ol class="text-muted">
+                                <li>Position your face centrally in front of the camera</li>
+                                <li>Ensure good lighting conditions</li>
+                                <li>Keep your eyes wide open</li>
+                                <li>Look directly at the camera</li>
+                                <li>Stay still during capture</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success" id="registerButton" disabled>
+                            Complete Registration
+                        </button>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-secondary">
+                            Already have an account? Login
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="enrollmentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Iris Enrollment Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="enrollmentProgress">
+                    <div class="progress mb-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <p id="enrollmentMessage" class="text-center">Preparing enrollment process...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

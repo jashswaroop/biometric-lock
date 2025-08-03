@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Login</h3>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills mb-3" id="loginTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="password-tab" data-bs-toggle="pill" data-bs-target="#passwordTab" type="button">Password Login</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="iris-tab" data-bs-toggle="pill" data-bs-target="#iris" type="button">Iris Login</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="loginTabContent">
+                    <!-- Password Login Form -->
+                    <div class="tab-pane fade show active" id="passwordTab" role="tabpanel">
+                        <form id="passwordLoginForm" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="loginUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="loginUsername" name="username" required>
+                                <div class="invalid-feedback">
+                                    Please enter your username.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" name="password" required>
+                                <div class="invalid-feedback">
+                                    Please enter your password.
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Iris Login Section -->
+                    <div class="tab-pane fade" id="iris" role="tabpanel">
+                        <div class="iris-auth-container">
+                            <div class="video-container mb-3">
+                                <video id="videoElement" class="w-100" autoplay playsinline></video>
+                                <canvas id="canvasElement" class="d-none"></canvas>
+                            </div>
+                            <div id="scanStatus" class="alert alert-info">
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span class="ms-2">Initializing camera...</span>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button id="startIrisScan" class="btn btn-primary" disabled>
+                                    Start Iris Scan
+                                </button>
+                            </div>
+                            <div class="iris-instructions mt-3">
+                                <h5>Iris Scan Instructions:</h5>
+                                <ol class="text-muted">
+                                    <li>Position your face centrally</li>
+                                    <li>Ensure good lighting</li>
+                                    <li>Keep eyes wide open</li>
+                                    <li>Look directly at camera</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="mb-0">Don't have an account? 
+                        <a href="{{ url_for('register') }}" class="text-primary">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Authentication Progress Modal -->
+<div class="modal fade" id="authProgressModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Authentication Progress</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p id="authMessage">Verifying your identity...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

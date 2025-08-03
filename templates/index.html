@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Biometric Lock System</h3>
+            </div>
+            <div class="card-body">
+                {% if current_user.is_authenticated %}
+                    <div class="text-center mb-4">
+                        <h4>Welcome, {{ current_user.username }}!</h4>
+                        <p class="text-muted">Access your secure area using iris authentication</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="video-container mb-3">
+                                <video id="videoElement" class="w-100" autoplay playsinline></video>
+                                <canvas id="canvasElement" class="d-none"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="status-container">
+                                <div id="scanStatus" class="alert alert-info">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <span class="ms-2">Initializing camera...</span>
+                                </div>
+                                <div id="matchStatus" class="alert alert-secondary d-none">
+                                    Waiting for iris scan...
+                                </div>
+                            </div>
+                            <div class="button-container text-center">
+                                <button id="startScan" class="btn btn-primary btn-lg mb-3">
+                                    Start Iris Scan
+                                </button>
+                                <button id="enrollIris" class="btn btn-success btn-lg mb-3 ms-2">
+                                    Enroll Iris
+                                </button>
+                            </div>
+                            <div class="instructions mt-3">
+                                <h5>Instructions:</h5>
+                                <ol class="text-muted">
+                                    <li>Position your face centrally in front of the camera</li>
+                                    <li>Keep your eyes wide open and look directly at the camera</li>
+                                    <li>Stay still during the scanning process</li>
+                                    <li>Ensure good lighting conditions</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center">
+                        <h4>Welcome to Biometric Lock System</h4>
+                        <p class="text-muted">Please login or register to use the iris authentication system</p>
+                        <div class="mt-4">
+                            <a href="{{ url_for('login') }}" class="btn btn-primary me-2">Login</a>
+                            <a href="{{ url_for('register') }}" class="btn btn-success">Register</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if current_user.is_authenticated %}
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="card-title mb-0">Access History</h5>
+            </div>
+            <div class="card-body">
+                <div id="accessHistory" class="list-group">
+                    <!-- Access history will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
